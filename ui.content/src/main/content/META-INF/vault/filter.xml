@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/careeriens" mode="merge"/>
+    <filter root="/content/careeriens" mode="merge"/>
+    <filter root="/content/dam/careeriens/asset.jpg" mode="merge"/>
+    <filter root="/content/experience-fragments/careeriens" mode="merge"/>
+</workspaceFilter>
