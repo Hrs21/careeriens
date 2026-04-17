@@ -1,0 +1,277 @@
+/* ── Reset / Base ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --header-bg: #ffffff;
+    --brand-green: #2e7d4f;
+    --brand-orange: #f28c1e;
+    --nav-text: #1a1a2e;
+    --dropdown-bg: #ffffff;
+    --dropdown-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    --dropdown-border: #e0e0e0;
+    --sub-hover-bg: #fff7ed;
+    --sub-active-color: #f28c1e;
+    --header-height: 70px;
+    --font: 'Segoe UI', system-ui, sans-serif;
+    --z-header: 1000;
+}
+
+/* ── Header Shell ─────────────────────────────────── */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: var(--header-bg);
+    border-bottom: 2px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-family: var(--font);
+}
+
+.header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: var(--header-height);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* ── Brand / Logo ─────────────────────────────────── */
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.brand-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.brand-part1 { color: var(--brand-green); }
+.brand-part2 { color: var(--brand-orange); }
+
+/* ── Nav List ─────────────────────────────────────── */
+.site-nav { margin-left: auto; }
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 4px;
+}
+
+.nav-item { position: relative; }
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    color: var(--nav-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-item.active > .nav-link {
+    color: var(--brand-green);
+    background: #f0f8f4;
+}
+
+/* Arrow indicator */
+.nav-arrow {
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid currentColor;
+    margin-top: 2px;
+    transition: transform 0.25s;
+}
+
+.nav-item.open > .nav-toggle .nav-arrow {
+    transform: rotate(180deg);
+}
+
+/* ── Level-1 Dropdown Panel ───────────────────────── */
+.dropdown-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 240px;
+    background: var(--dropdown-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: 10px;
+    box-shadow: var(--dropdown-shadow);
+    padding: 8px 0;
+    z-index: 100;
+}
+
+.nav-item.open > .dropdown-panel { display: block; }
+
+.dropdown-list { list-style: none; }
+
+.dropdown-item { position: relative; }
+
+.dropdown-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+    color: var(--nav-text);
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.dropdown-link:hover { background: #f5f5f5; color: var(--brand-green); }
+
+/* Sub arrow (›) */
+.sub-arrow {
+    font-size: 1.1rem;
+    color: #999;
+    margin-left: 8px;
+    transition: transform 0.2s;
+}
+
+.dropdown-item.sub-open > .sub-toggle .sub-arrow { transform: rotate(90deg); }
+
+/* ── Level-2 Sub Panel (Right Side) ──────────────── */
+.sub-panel {
+    display: none;
+    position: absolute;
+    top: -8px;
+    left: 100%;
+    min-width: 220px;
+    background: var(--dropdown-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: 10px;
+    box-shadow: var(--dropdown-shadow);
+    padding: 12px 0 8px;
+    z-index: 101;
+}
+
+.dropdown-item.sub-open > .sub-panel { display: block; }
+
+.sub-panel-heading {
+    padding: 0 16px 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--nav-text);
+    border-bottom: 1px solid var(--dropdown-border);
+    margin-bottom: 4px;
+}
+
+.sub-list { list-style: none; }
+
+.sub-link {
+    display: block;
+    padding: 9px 16px;
+    font-size: 0.88rem;
+    color: var(--nav-text);
+    text-decoration: none;
+    border-radius: 6px;
+    margin: 2px 8px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.sub-link:hover {
+    background: var(--sub-hover-bg);
+    color: var(--sub-active-color);
+}
+
+/* Active sub-link (e.g. current page) */
+.sub-link.active {
+    background: var(--sub-hover-bg);
+    color: var(--sub-active-color);
+    font-weight: 500;
+}
+
+/* ── Hamburger (Mobile) ───────────────────────────── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--nav-text);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Responsive ───────────────────────────────────── */
+@media (max-width: 900px) {
+    .hamburger { display: flex; }
+
+    .site-nav {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        left: 0; right: 0;
+        background: var(--header-bg);
+        border-top: 1px solid #eee;
+        padding: 12px 0 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+
+    .site-nav.mobile-open { display: block; }
+
+    .nav-list { flex-direction: column; align-items: stretch; gap: 0; }
+
+    .nav-link { width: 100%; border-radius: 0; padding: 12px 24px; }
+
+    .dropdown-panel {
+        position: static;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid #eee;
+        border-radius: 0;
+        padding-left: 16px;
+    }
+
+    .sub-panel {
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding-left: 16px;
+    }
+}

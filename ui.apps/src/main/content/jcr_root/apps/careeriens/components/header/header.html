@@ -1,0 +1,118 @@
+<!-- Load ClientLib -->
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html"
+     data-sly-call="${clientlib.all @ categories='careeriens.header'}"/>
+
+<!-- Sling Model -->
+<sly data-sly-use.header="com.careeriens.core.models.HeaderModel"/>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <!-- LOGO + BRAND -->
+        <a href="${header.homePagePath @ context='uri'}"
+           class="brand-link"
+           aria-label="Go to Home">
+
+            <sly data-sly-test="${header.logoPath}">
+                <img class="brand-logo"
+                     src="${header.logoPath @ context='uri'}"
+                     alt="${header.logoAlt @ context='attribute'}"/>
+            </sly>
+
+            <span class="brand-name">
+                <span class="brand-part1">${header.brandNamePart1}</span>
+                <span class="brand-part2">${header.brandNamePart2}</span>
+            </span>
+        </a>
+
+        <!-- NAVIGATION -->
+        <nav class="site-nav" aria-label="Main Navigation">
+            <ul class="nav-list">
+
+                <sly data-sly-list.navItem="${header.navItems}">
+                    <li class="nav-item ${navItem.dropdownItems ? 'has-dropdown' : ''}">
+
+                        <!-- NAV ITEM WITH DROPDOWN -->
+                        <sly data-sly-test="${navItem.dropdownItems}">
+                            <button class="nav-link nav-toggle"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                ${navItem.label}
+                                <span class="nav-arrow"></span>
+                            </button>
+
+                            <!-- LEVEL 1 DROPDOWN -->
+                            <div class="dropdown-panel">
+                                <ul class="dropdown-list">
+
+                                    <sly data-sly-list.dropItem="${navItem.dropdownItems}">
+                                        <li class="dropdown-item ${dropItem.subItems ? 'has-sub' : ''}">
+
+                                            <!-- WITH SUB ITEMS -->
+                                            <sly data-sly-test="${dropItem.subItems}">
+                                                <button class="dropdown-link sub-toggle"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                    ${dropItem.dropLabel}
+                                                    <span class="sub-arrow">›</span>
+                                                </button>
+
+                                                <!-- LEVEL 2 SUB MENU -->
+                                                <div class="sub-panel">
+                                                    <p class="sub-panel-heading">
+                                                        ${dropItem.dropLabel}
+                                                    </p>
+
+                                                    <ul class="sub-list">
+                                                        <sly data-sly-list.subItem="${dropItem.subItems}">
+                                                            <li class="sub-item">
+                                                                <a href="${subItem.subLink @ context='uri'}"
+                                                                   class="sub-link">
+                                                                    ${subItem.subLabel}
+                                                                </a>
+                                                            </li>
+                                                        </sly>
+                                                    </ul>
+                                                </div>
+                                            </sly>
+
+                                            <!-- WITHOUT SUB ITEMS -->
+                                            <sly data-sly-test="${!dropItem.subItems}">
+                                                <a href="${dropItem.dropLink @ context='uri'}"
+                                                   class="dropdown-link">
+                                                    ${dropItem.dropLabel}
+                                                </a>
+                                            </sly>
+
+                                        </li>
+                                    </sly>
+
+                                </ul>
+                            </div>
+                        </sly>
+
+                        <!-- NAV ITEM WITHOUT DROPDOWN -->
+                        <sly data-sly-test="${!navItem.dropdownItems}">
+                            <a href="${navItem.link @ context='uri'}"
+                               class="nav-link">
+                                ${navItem.label}
+                            </a>
+                        </sly>
+
+                    </li>
+                </sly>
+
+            </ul>
+        </nav>
+
+        <!-- HAMBURGER -->
+        <button class="hamburger"
+                aria-label="Toggle Menu"
+                aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+</header>
